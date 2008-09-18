@@ -1,0 +1,22 @@
+DESCRIPTION="GNU library support script"
+HOMEPAGE="http://www.gnu.org/software/libtool/"
+SRC_URI="mirror://gnu/${PN}/${P}.tar.lzma"
+PATCH_URI="2.2-sed.patch"
+
+SRC_DIR="${P%[a-z]}"
+
+abi=7
+PKG_NAMES="${PN} libltdl${abi}"
+PKG_HINTS="setup ltdl"
+PKG_CONTENTS[0]="--exclude=*.dll usr/"
+PKG_CONTENTS[1]="usr/bin/cygltdl-${abi}.dll"
+
+DIFF_EXCLUDES="INSTALL libtool.info* stamp-vti version.texi config.guess texinfo.tex"
+
+src_compile() {
+	cd ${S}
+	./bootstrap || error "autoreconf failed"
+	cd ${B}
+	cygconf FC=no
+	cygmake -j1
+}

@@ -1,0 +1,22 @@
+On Cygwin, the --export-all-symbols linker flag is required; --export-dynamic
+has no effect (see http://sourceware.org/bugzilla/show_bug.cgi?id=6744).
+
+This patch fixes two problems:
+
+1) LT_SYS_DLOPEN_SELF returns a false negative;
+2) Using the -export-dynamic libtool flag does not affect the resulting binary.
+
+	* libltdl/m4/libtool.m4 (_LT_LINKER_SHLIBS) [cygwin*|mingw*|pw32*|cegcc*]:
+	Define export_dynamic_flag_spec as -Wl,--export-all-symbols, as required
+	by GNU ld for PE-COFF.
+
+--- origsrc/libtool-2.2.6/libltdl/m4/libtool.m4	2008-09-05 06:54:41.000000000 -0500
++++ src/libtool-2.2.6/libltdl/m4/libtool.m4	2009-03-25 16:25:45.239000000 -0500
+@@ -4322,6 +4322,7 @@ _LT_EOF
+       # _LT_TAGVAR(hardcode_libdir_flag_spec, $1) is actually meaningless,
+       # as there is no search path for DLLs.
+       _LT_TAGVAR(hardcode_libdir_flag_spec, $1)='-L$libdir'
++      _LT_TAGVAR(export_dynamic_flag_spec, $1)='${wl}--export-all-symbols'
+       _LT_TAGVAR(allow_undefined_flag, $1)=unsupported
+       _LT_TAGVAR(always_export_symbols, $1)=no
+       _LT_TAGVAR(enable_shared_with_static_runtimes, $1)=yes

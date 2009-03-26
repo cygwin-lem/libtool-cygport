@@ -1,5 +1,5 @@
-category: Devel
-requires: cygwin
+category: Libs
+requires: cygwin libgcc1
 external-source: libtool
 sdesc: "Libtool dynamic loader library (runtime)"
 ldesc: "GNU libtool is a generic library support script.

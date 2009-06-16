@@ -1,0 +1,17 @@
+	* libltdl/m4/libtool.m4 (LT_PATH_LD): Require _LT_PROG_ECHO_BACKSLASH
+	to define $ECHO in case it is called before LT_INIT.
+
+---
+ libltdl/m4/libtool.m4 |    1 +
+ 1 file changed, 1 insertion(+), 0 deletions(-)
+
+--- libltdl/m4/libtool.m4	2009-06-11 00:03:10.000000000 -0500
++++ libltdl/m4/libtool.m4	2009-06-15 20:10:31.227624900 -0500
+@@ -2772,6 +2772,7 @@ AC_REQUIRE([AC_CANONICAL_HOST])dnl
+ AC_REQUIRE([AC_CANONICAL_BUILD])dnl
+ m4_require([_LT_DECL_SED])dnl
+ m4_require([_LT_DECL_EGREP])dnl
++m4_require([_LT_PROG_ECHO_BACKSLASH])dnl
+ 
+ AC_ARG_WITH([gnu-ld],
+     [AS_HELP_STRING([--with-gnu-ld],

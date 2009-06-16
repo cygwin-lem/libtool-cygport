@@ -1,18 +1,15 @@
 DESCRIPTION="GNU library support script"
 HOMEPAGE="http://www.gnu.org/software/libtool/"
-SRC_URI="mirror://gnu/${PN}/${P}.tar.lzma"
-PATCH_URI="2.2-export-all-symbols.patch
-           2.2-gcc4-libs.patch
-           2.2-sed.patch"
-
-SRC_DIR="${P%[a-z]}"
+#SRC_URI="mirror://gnu/${PN}/${P}.tar.lzma"
+SRC_URI="http://pogma.com/libtool/${P}.tar.gz"
+PATCH_URI=""
 
 PKG_NAMES="${PN} libltdl7"
 PKG_HINTS="setup ltdl"
 libtool_CONTENTS="--exclude=*.dll usr/"
 libltdl7_CONTENTS="usr/bin/cygltdl-7.dll"
 
-DIFF_EXCLUDES="INSTALL libtool.info* stamp-vti version.texi config.guess texinfo.tex"
+DIFF_EXCLUDES="INSTALL libtool.1 libtool.info* ltmain.sh stamp-vti version.texi config.guess config.sub texinfo.tex"
 
 src_compile() {
 	cd ${S}

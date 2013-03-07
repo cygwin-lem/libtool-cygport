@@ -1,7 +1,0 @@
-category: Libs
-requires: libgcc1
-external-source: libtool
-sdesc: "Libtool dynamic loader library (runtime)"
-ldesc: "GNU libtool is a generic library support script.
-Libtool hides the complexity of using shared libraries behind
-a consistent, portable interface."

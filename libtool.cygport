@@ -1,0 +1,33 @@
+NAME="libtool"
+VERSION=2.4.2
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Generic library support script"
+DESCRIPTION="GNU libtool is a generic library support script. Libtool hides the
+complexity of using shared libraries behind a consistent, portable interface."
+HOMEPAGE="http://www.gnu.org/software/libtool/"
+SRC_URI="ftp://ftp.gnu.org/gnu/${NAME}/${NAME}-${VERSION}.tar.xz
+         ftp://ftp.gnu.org/gnu/${NAME}/${NAME}-${VERSION}.tar.xz.sig"
+
+PATCH_URI="
+	2.4-cygwin-mingw-Create-UAC-manifest-files.patch
+	2.4-pass-ldflags.patch
+"
+
+PKG_NAMES="${NAME} libltdl7"
+libtool_CONTENTS="--exclude=usr/bin/*.dll usr/"
+libltdl7_SUMMARY="Libtool dynamic library loader library (runtime)"
+libltdl7_CONTENTS="usr/bin/cygltdl-7.dll"
+
+DIFF_EXCLUDES="Makefile.in aclocal.m4 compile config.* configure depcomp ltmain.sh mdate-sh missing *.1 *.tex"
+
+src_compile() {
+	cd ${S}
+	./bootstrap
+	cd ${B}
+	${ARCH_x86_64+unset F77 FC GCJ GOC OBJC OBJCXX}
+	cygconf
+	cygmake -j1
+}
+
+DOCS="ChangeLog.*"

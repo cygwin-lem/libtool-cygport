@@ -1,6 +1,6 @@
 NAME="libtool"
-VERSION=2.4.2
-RELEASE=5
+VERSION=2.4.5
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Generic library support script"
 DESCRIPTION="GNU libtool is a generic library support script. Libtool hides the
@@ -10,7 +10,7 @@ SRC_URI="mirror://gnu/${NAME}/${NAME}-${VERSION}.tar.xz
          mirror://gnu/${NAME}/${NAME}-${VERSION}.tar.xz.sig"
 
 PATCH_URI="
-	2.4-pass-ldflags.patch
+	2.4.5-pass-ldflags.patch
 "
 
 PKG_NAMES="${NAME} libltdl7"
@@ -21,8 +21,8 @@ libltdl7_CONTENTS="usr/bin/cygltdl-7.dll"
 DIFF_EXCLUDES="Makefile.in aclocal.m4 compile config.* configure depcomp ltmain.sh mdate-sh missing *.1 *.tex"
 
 src_compile() {
-	cd ${S}
-	./bootstrap
+#	cd ${S}
+#	./bootstrap --force --skip-git --skip-po
 	cd ${B}
 	unset GOC ${ARCH_x86_64+GCJ}
 	cygconf

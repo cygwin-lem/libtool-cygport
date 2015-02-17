@@ -1,5 +1,5 @@
 NAME="libtool"
-VERSION=2.4.5
+VERSION=2.4.6
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Generic library support script"

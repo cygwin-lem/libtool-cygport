@@ -1,0 +1,35 @@
+--- origsrc/libtool-2.4.6/build-aux/ltmain.in	2020-05-12 22:29:57.757206400 -0400
++++ src/libtool-2.4.6/build-aux/ltmain.in	2020-05-12 22:42:27.804017500 -0400
+@@ -5853,8 +5853,15 @@ func_mode_link ()
+ 	  fi
+ 	  case $linkmode in
+ 	  lib)
+-	    # Linking convenience modules into shared libraries is allowed,
+-	    # but linking other static libraries is non-portable.
++	    # Linking convenience modules and compiler provided static libraries
++	    # into shared libraries is allowed, but linking other static
++	    # libraries is non-portable.
++	    case $deplib in
++	      */libgcc*.$libext | */libclang_rt*.$libext)
++		deplibs="$deplib $deplibs"
++		continue
++	      ;;
++	    esac
+ 	    case " $dlpreconveniencelibs " in
+ 	    *" $deplib "*) ;;
+ 	    *)
+--- origsrc/libtool-2.4.6/m4/libtool.m4	2015-01-20 11:15:19.000000000 -0500
++++ src/libtool-2.4.6/m4/libtool.m4	2020-05-12 22:43:58.991841900 -0400
+@@ -7528,10 +7528,11 @@ if AC_TRY_EVAL(ac_compile); then
+   # the conftest object file.
+   pre_test_object_deps_done=no
+ 
++  eval std_shrext=\"$shrext_cmds\"
+   for p in `eval "$output_verbose_link_cmd"`; do
+     case $prev$p in
+ 
+-    -L* | -R* | -l*)
++    -L* | -R* | -l* | *.${libext} | *${std_shrext})
+        # Some compilers place space between "-{L,R}" and the path.
+        # Remove the space.
+        if test x-L = "$p" ||
